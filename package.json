@@ -1,7 +1,7 @@
 {
   "name": "romanizer",
   "version": "0.0.1",
-  "description": "Some Roman to Arabic converter",
+  "description": "Javascript Arabic to Roman (and vice versa) numericals converter",
   "main": "romanizer.js",
   "scripts": {
     "test": "jest"

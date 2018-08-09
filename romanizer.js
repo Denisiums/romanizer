@@ -32,19 +32,47 @@ class RomanNumerals {
     }
 
     let result = '';
-    let i = 0;
-    while(number > 0 && i < NUMERALS.length) {
-      const numeral = NUMERALS[i];
+    let numeralIndex = 0;
+    while(number > 0 && numeralIndex < NUMERALS.length) {
+      const numeral = NUMERALS[numeralIndex];
       if (number >= numeral.arabic) {
         result += numeral.roman;
         number -= numeral.arabic;
       } else {
-        i++;
+        numeralIndex++;
       }
     }
     return result;
   }
 
+  static fromRoman(roman) {
+    const invalidArgumentError = new TypeError('Invalid roman string!');
+
+    if (!roman || typeof roman !== 'string') {
+      throw invalidArgumentError;
+    }
+
+    const romanString = roman.toUpperCase();
+    let result = 0;
+    let numeralIndex = 0;
+    let cursor = 0;
+    while (numeralIndex < NUMERALS.length && cursor < romanString.length) {
+      const numeral = NUMERALS[numeralIndex];
+      if (romanString.substr(cursor, numeral.roman.length) === numeral.roman) {
+        result += numeral.arabic;
+        cursor += numeral.roman.length;
+      }
+      else {
+        numeralIndex++;
+      }
+    }
+
+    if (cursor < romanString.length) {
+      throw invalidArgumentError;
+    }
+
+    return result;
+  }
 }
 
 function generateNumeral(arabic, roman) {
